@@ -1,12 +1,13 @@
-FROM nginx
+# ведь если не указать конкретный тег будет использоваться последняя версия на которой может не работать твой сайт
+FROM nginx:1.25.3
 
 WORKDIR /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY ava.png .
+# можно сразу копировать несколько файлов в одну папку таким образом
+COPY ava.png example.html example.css .
 
-COPY example.html .
-COPY example.css .
-
+# эта инструкция не нужна, она просто для красоты, чтобы знать что на таком порту приложение будет запускать
+# в том же docker compose или k8s ты будешь сам пробрасывать нужные порты, эта инстукция будет игнорироваться
 EXPOSE 8080
